@@ -1,2 +1,3 @@
 # twitter-data-wrangling
-Wrangling data obtained from Twitter API.
+Data wrangling and analysis of the [@dog_rates](https://twitter.com/dog_rates) Twitter statuses.
+In this data analysis, I will analyze the dog ratings present in the tweet statuses.
