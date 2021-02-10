@@ -1,2 +1,2 @@
 # twitter-data-wrangling
-Wrangling data obtained from Twitter API.
+Data wrangling and analysis of the [@dog_rates](https://twitter.com/dog_rates) Twitter account. In this data analysis, I will analyze the dog ratings present in the tweet statuses. The tweet statuses are mainly obtained from the given tweet archive (given by Udacity), but it is missing some information. The information regarding retweet count and favorite count of each tweet status were then obtained using Tweepy API.
