@@ -14339,10 +14339,6 @@ a.anchor-link {
 <li>The <code>tweet_infos_df</code> should not be separated from the <code>twitter_df</code>. Both of them should be combined together, because the columns <code>retweet_count</code> and <code>favorite_count</code> should belong to <code>twitter_df</code> which represent tweet related details.</li>
 </ul>
 </li>
-<li>Index of <code>twitter_df</code> and <code>image_pred_df</code> is not <code>tweet_id</code>:<ul>
-<li>The index of <code>twitter_df</code> and <code>image_pred_df</code> should be changed to <code>tweet_id</code> to ease programmatic analysis.</li>
-</ul>
-</li>
 <li>Dog stage and dog name columns do not belong in <code>twitter_df</code>:<ul>
 <li>The dog stage columns (<code>doggo</code>, <code>floofer</code>, <code>pupper</code>, and <code>puppo</code>) and the dog name column <code>name</code> should be in a separate table/dataframe specific to contain information about the dog detected from the tweet status. The <code>twitter_df</code> should only contain tweet related details and not anything else.</li>
 </ul>
@@ -14353,6 +14349,7 @@ a.anchor-link {
 </ul>
 </li>
 <li><code>image_pred_df</code>'s predicted class (<code>p1</code>, <code>p2</code>, <code>p3</code>), prediction confidence (<code>p1_conf</code>, <code>p2_conf</code>, <code>p3_conf</code>), and "is dog" columns (<code>p1_dog</code>, <code>p2_dog</code>, <code>p3_dog</code>) are untidy, where each of them should be represented by 1 column, but they are separated into 3 columns for each variable.</li>
+<li>Some of the rows in <code>twitter_df</code> are retweets / replies. They should be removed as they will hamper analysis result.</li>
 </ul>
 
 </div>
@@ -14412,10 +14409,6 @@ a.anchor-link {
 <li>Merged the tables <code>tweet_infos_df</code> into <code>twitter_df</code> based on the <code>tweet_id</code> column.</li>
 </ul>
 </li>
-<li>Index of <code>twitter_df</code> and <code>image_pred_df</code> is not <code>tweet_id</code>:<ul>
-<li>Set the index of <code>twitter_df</code> and <code>image_pred_df</code> to be the <code>tweet_id</code>.</li>
-</ul>
-</li>
 <li>Dog stage and dog name columns do not belong in <code>twitter_df</code>:<ul>
 <li>Separated the <code>name</code>, <code>doggo</code>, <code>floofer</code>, <code>pupper</code>, and <code>puppo</code> columns from <code>twitter_df</code> into a new dataframe <code>tweet_dog_info_df</code>.</li>
 <li>Dropped the columns mentioned above from <code>twitter_df</code>.</li>
@@ -14428,6 +14421,10 @@ a.anchor-link {
 <li><code>image_pred_df</code>'s predicted class (<code>p1</code>, <code>p2</code>, <code>p3</code>), prediction confidence (<code>p1_conf</code>, <code>p2_conf</code>, <code>p3_conf</code>), and "is dog" columns (<code>p1_dog</code>, <code>p2_dog</code>, <code>p3_dog</code>) are untidy, where each of them should be represented by 1 column, but they are separated into 3 columns for each variable:<ul>
 <li>For this I melted the columns mentioned above into the following columns: <code>pred_level</code> (in which the value is either 1, 2, or 3), <code>pred_confidence</code>, <code>pred_class</code>, and <code>is_dog</code>.</li>
 <li>Afterward, the index for <code>image_pred_df</code> is set to <code>tweet_id</code>, <code>img_idx</code>, and <code>pred_level</code>.</li>
+</ul>
+</li>
+<li>Some of the rows in <code>twitter_df</code> are retweets / replies. They should be removed as they will hamper analysis result:<ul>
+<li>For this I dropped all the rows that has <code>is_retweet</code> or <code>is_reply</code> being <code>True</code> (these columns are described below in the "Feature Engineering" section.</li>
 </ul>
 </li>
 </ul>
