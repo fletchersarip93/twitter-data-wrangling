@@ -14283,14 +14283,13 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Quality-Issues">Quality Issues<a class="anchor-link" href="#Quality-Issues">&#182;</a></h3><p>Here is the list of data quality issues found from the data:</p>
 <ul>
-<li>Invalid column data types in <code>twitter_df</code>:<ul>
-<li><code>tweet_id</code> is of type integer, while it should be string because it's an ID.</li>
+<li>All id columns should have a data type of string:<ul>
+<li><code>tweet_id</code> in both <code>image_pred_df</code> and <code>twitter_df</code> are of type integer, while it should be string because it's an ID.</li>
 <li><code>in_reply_to_status_id</code>, <code>in_reply_to_user_id</code>, <code>retweeted_status_id</code>, <code>retweeted_status_user_id</code> are of type float, while they should be string because they are IDs.</li>
-<li><code>timestamp</code> and <code>retweeted_status_timestamp</code> are of type string, while they should be datetime.</li>
 </ul>
 </li>
-<li>Invalid column data types in <code>image_pred_df</code>:<ul>
-<li><code>tweet_id</code> is integer, while it should be string since it is an ID.</li>
+<li>Timestamp-related columns should have a data type of datetime:<ul>
+<li><code>timestamp</code> and <code>retweeted_status_timestamp</code> are of type string, while they should be datetime.</li>
 </ul>
 </li>
 <li>Invalid value "None" in dog stage columns in <code>twitter_df</code>:<ul>
@@ -14339,6 +14338,8 @@ a.anchor-link {
 <li>The <code>tweet_infos_df</code> should not be separated from the <code>twitter_df</code>. Both of them should be combined together, because the columns <code>retweet_count</code> and <code>favorite_count</code> should belong to <code>twitter_df</code> which represent tweet related details.</li>
 </ul>
 </li>
+<li><code>image_pred_df</code>'s predicted class (<code>p1</code>, <code>p2</code>, <code>p3</code>), prediction confidence (<code>p1_conf</code>, <code>p2_conf</code>, <code>p3_conf</code>), and "is dog" columns (<code>p1_dog</code>, <code>p2_dog</code>, <code>p3_dog</code>) are untidy, where each of them should be represented by 1 column, but they are separated into 3 columns for each variable.</li>
+<li>Some of the rows in <code>twitter_df</code> are retweets / replies. They should be removed as they will hamper analysis result.</li>
 <li>Dog stage and dog name columns do not belong in <code>twitter_df</code>:<ul>
 <li>The dog stage columns (<code>doggo</code>, <code>floofer</code>, <code>pupper</code>, and <code>puppo</code>) and the dog name column <code>name</code> should be in a separate table/dataframe specific to contain information about the dog detected from the tweet status. The <code>twitter_df</code> should only contain tweet related details and not anything else.</li>
 </ul>
@@ -14348,8 +14349,6 @@ a.anchor-link {
 <li>Also it was found that each tweet may have multiple dog rating, which adds one more reason for dog ratings information to have their own table/dataframe separate from <code>twitter_df</code>.</li>
 </ul>
 </li>
-<li><code>image_pred_df</code>'s predicted class (<code>p1</code>, <code>p2</code>, <code>p3</code>), prediction confidence (<code>p1_conf</code>, <code>p2_conf</code>, <code>p3_conf</code>), and "is dog" columns (<code>p1_dog</code>, <code>p2_dog</code>, <code>p3_dog</code>) are untidy, where each of them should be represented by 1 column, but they are separated into 3 columns for each variable.</li>
-<li>Some of the rows in <code>twitter_df</code> are retweets / replies. They should be removed as they will hamper analysis result.</li>
 </ul>
 
 </div>
